@@ -224,4 +224,8 @@ def select_region(img):
     top_right = [width * 0.6, height * 0.6]
     vertices = np.array([[bottom_left, top_left, top_right, bottom_right]], dtype=np.int32)
     return region_of_interest(img, vertices)
+```
 
+After applying above functions for Canny detected images, following results were extracted.
+
+![](resources/roi-images.png)
