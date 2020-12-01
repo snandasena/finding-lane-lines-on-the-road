@@ -176,3 +176,6 @@ We have detected edges using Canny edge detector algorithm. Now we have to selec
 This is the most tricky part in this pipeline building. Since we are going to detect road lane left and right lines which are bounded with vehicle front, we have to select area that is fitted with our requirements. I have manually marked our final results, before we going to do it programatically :). Following are the manual marked images.
 
 ![](resources/canny-edges-detected-images-manual-masked.png)
+
+
+OpenCV 
