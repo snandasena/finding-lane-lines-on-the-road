@@ -70,7 +70,7 @@ Following are the results after applying HSV filter
 
 ![](resources/hsv-images.png) 
 
-##### HSL Filter
+##### HSL filter
 ```python
 def rgb_to_hsv(img):
     return cv2.cvtColor(img, cv2.COLOR_RGB2HLS)
@@ -82,7 +82,7 @@ Following are the results after applying HSL filter
 
 Compare with both filters, the HSL filter is good to detect both white and yellow lane lines  
 
-##### Select white yellow colour spaces using HSL filter
+##### Select white and yellow colour spaces using HSL filter
 
 ```python
 def select_white_yellow(img):
@@ -106,7 +106,7 @@ Following are the results after applying combine HSL filter and colour masked fi
 
 ![](resources/yellow-white-images.png)
 
-## Edge detection
+## Edge Detection
 Upto now we have used some functions to do some image processing techniques to prepare our test images for further image processing. Now we'll extract edges using  some advanced algorithms like Canny edge detection, Hough transformation. Here we'll use OpenCV inbuilt functions to apply these algorithmns. Following steps will be used to detect edges from images.  
 
 * Step01 - Grayscaling preared images
@@ -149,7 +149,7 @@ Following are the results, after applying **GaussianBlur**.
 
 ![](resources/gaussian-smoothing-images.png)
 
-### Detecting edges using Canny edge detection
+### Detecting edges using Canny edge detector
 Now we'll apply Canny edge detection for smoothed images. Following is the utility fuction that is used to detect edges from images.
 
 ```python
@@ -273,7 +273,7 @@ We can see there are mutiple lines detected for a lane line. In our case multipl
 #### Extrapolation lane lines
 Since we are expecting an angular left and right lines, slope of the left must positive and slope of the right must negative. And, there are lane lines not detected fully. Therefore we should extrapolate the line to cover full lane length.  
 
-Following utility functions will be used to do averagin and extrapolation
+Following utility functions will be used to do averagin and extrapolation.
 
 ```python
 def average_slope_intercept(lines):
@@ -353,3 +353,89 @@ def draw_lane_lines(image, lines, color=[255, 0, 0], thickness=20):
 After the averaging and extrapolation the images are gave the following results.
 
 ![](resources/draw-line-improved-version.png)
+
+## Build Pipeline and Test with Video Clips
+Now we have required utility functions to build lane lines ob the roads. Following functions were implemented to build this pipeline.
+
+```python
+def mean_line(line, lines):
+    if line is not None:
+        lines.append(line)
+
+    if len(lines)>0:
+        line = np.mean(lines, axis=0, dtype=np.int32)
+        line = tuple(map(tuple, line)) # make sure it's tuples not numpy array for cv2.line to work
+    return line
+```
+```python
+def process_image(img):
+    """
+    This is used to build our road lane line detect pipeline
+    :param imag -
+    """
+    w_y_img = select_white_yellow(img) # Extracted white-yellow image
+    gray_img = grayscale(w_y_img) # gray scaled iamge
+    smooth_gray = apply_smoothing(gray_img) # Gaussian smoothing image
+    edges = detect_edges(smooth_gray) # Canny edge detected iamge
+    roi_img = select_region(edges) # selected rion image
+    lines = hough_lines(roi_img) # Hough transformed iamge
+    l_line , r_line = lane_lines(img, lines) # separated left and right lane lines
+
+    l_line = mean_line(l_line, deque(maxlen=50)) # apply averaging and extract single line left lane line
+    r_line = mean_line(r_line, deque(maxlen=50)) # appy averaging and extract single line right lane line
+
+    return draw_lane_lines(img, (l_line, r_line)) # draw lane line and return lane line drawn iamge
+    
+```
+```python
+def detect_lanes_from_video(input_path, output_path):
+    clip1 = VideoFileClip("test_videos/"+input_path)
+    white_clip = clip1.fl_image(process_image) #NOTE: this function expects color images!!
+    white_clip.write_videofile(out_dir+output_path, audio=False)
+    return white_clip
+```
+### Sample test case for `solidYellowLeft.mp4`
+
+```python
+out_name = "solidYellowLeft.mp4"
+out_video = out_dir+out_name
+%time out_vedio = detect_lanes_from_video(out_name,out_name)
+```
+## Results
+Output videos can be found [](test_videos_output/) or with the following links.  
+
+Solid Yellow Left -  
+
+[![Solid Yellow Left](resources/solid-yello-left.png)](https://youtu.be/KHMm9bNizo8) 
+
+Solid White Right -  
+
+[![Solid White Right](resources/solid-white-right.png)](https://youtu.be/jqXXYEpGqfg)  
+
+Challenge Clip - 
+
+[![Challenge](resources/Challenge.png)](https://youtu.be/FQlkyQmXtiI)
+
+## Indentified Protential Shortcommings
+* In this project we only used Hough line transform. But, there are curve lines can be foud while driving on the roads
+* Selecting a dynamic region vetices for the interest area (ROI) was a challenge due to dyanmic images 
+* There will be a challenge to apply this pipeline, when we have steep roads
+
+## Suggest Improvements
+* For further improvements, CNN(Convolutional Neural Network) can be applied.
+* Provided test images and video clips contains clear roads and great weather conditions. This pipeline can be improved with different enviromental condtions and can be found more insights
+
+## References
+* [Introduction to Computer Vision - Udacity](https://www.udacity.com/course/introduction-to-computer-vision--ud810)
+* [Self driving can engineer - Udacity](https://www.udacity.com/course/self-driving-car-engineer-nanodegree--nd013)
+* [OpenCV official documents](https://docs.opencv.org/4.4.0/index.html)
+* [OpenCV my git repo C++ samples](https://github.com/snandasena/opencv-cpp-examples)
+* [Canny edge detection](https://en.wikipedia.org/wiki/Canny_edge_detector)
+* [Hough tranform](https://en.wikipedia.org/wiki/Hough_transform)
+* [Gaussian blur](https://en.wikipedia.org/wiki/Gaussian_blur)
+* [Naoki medium blog](https://naokishibuya.medium.com/finding-lane-lines-on-the-road-30cf016a1165)
+* [HSV and HSL](https://www.w3schools.com/colors/colors_hsl.asp)
+* [CS231n: Convolutional Neural Networks for Visual Recognition](http://cs231n.stanford.edu/)
+
+## Acknowledgments
+Big thank you to [Udacity](https://www.udacity.com) for providing the template code for this project.
