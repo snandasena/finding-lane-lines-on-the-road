@@ -58,4 +58,12 @@ As an example, I used to show HSV colour space and used OpenCV `cv2.COLOR_RGB2HS
 
 ![](resources/colour-cylinders.png) 
 
-Image was croped: https://en.wikipedia.org/wiki/HSL_and_HSV
+Image was croped: https://en.wikipedia.org/wiki/HSL_and_HSV  
+```python
+def rgb_to_hsv(img):
+    return cv2.cvtColor(img, cv2.COLOR_RGB2HSV)
+```  
+
+Following are the results after applying above filter  
+
+![](resources/hsv-images.png) 
