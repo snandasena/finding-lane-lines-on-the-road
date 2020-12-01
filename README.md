@@ -29,3 +29,18 @@ This project consits of following major files and folders.
 
 ## Image Processing
 ### Colour selection
+Lines are yellow and white, some are dotted lines. Dotted lines need to be detected as a single line. Images were loaded as RGB spaces. In OpenCV `cv2.inRange` function can be used to mask images with different colours. [Colour flickers or Colour chart](https://www.rapidtables.com/web/color/RGB_Color.html) can be used to fick specific colours. Following fucntion is used filter yellow and white parts from the iamges.
+```python
+def select_rgb_white_yellow(img):
+    # white mask
+    lower_bound = np.uint8([220,220,220])
+    upper_bound = np.uint8([255,255,255])
+    w_mask = cv2.inRange(img, lower_bound, upper_bound)
+
+    # yellow masked
+    lower_bound = np.uint8([190, 190,0])
+    y_mask = cv2.inRange(img, lower_bound, upper_bound)
+
+    # combine the masks
+    mask = cv2.bitwise_or(w_mask, y_mask)
+    return cv2.bitwise_and(img, img,mask=mask)```
