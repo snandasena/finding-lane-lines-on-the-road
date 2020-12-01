@@ -2,18 +2,18 @@
 [![](resources/final-video-capture.png)](https://youtu.be/KHMm9bNizo8)
 
 ## Introduction
-In this project we are going to detect lane line on the road. Inputs were provided as a video clips and annotations were done with provided input road images. Our goal to detect lane line using annotated road images. Following learning objectives will be covered from this projects.
+In this project, we are going to detect lane lines on the road. Inputs were provided as video clips and annotations were done with provided input road images. Our goal is to detect lane lines using annotated road images. Following learning objectives will be covered from this project.
 
 * Basic usage of OpenCV Python APIs
 * Basic image processing techniques such as colour scale changes, colour selection, bluring images
-* Images edge detection using Canny edge detector (OpenCV will be used to apply these theories)
+* Image edge detection using Canny edge detector (OpenCV will be used to apply these theories)
 * Required images' region selection. Both hard coded and dynamic selections will be used
-* Hough tranfomation line detection (OpenCV will be used to appy these alogorithnms)
+* Hough tranfomation line detection (OpenCV will be used to appy these algorithms)
 
-This project consits of following major files and folders.
+This project consists of the following major files and folders.
 * Finding_Lane_Lines_on_the_Road.ipynb - **The IPython notebook file**
 * Finding_Lane_Lines_on_the_Road.html - **A extracted HTML file from notebook**
-* READMED.md - **Writeup for this project**
+* READMED.md - **Write-up for this project**
 * test_images - **Test images directory**
 * test_videos - **Test videos directory**
 * test_videos_output - **Output directory**
@@ -24,12 +24,12 @@ This project consits of following major files and folders.
 [Running Instruction](HOW_TO_RUN.md)
 
 ## Loading Test Images
-**matplotlib** was used to visualize provided and generated test image. Following are the provided test iamges.
+**matplotlib** was used to visualize the provided and generated test image. Following are the provided test images.
 ![](resources/test-images.png)
 
 ## Image Processing
 ### Colour selection
-Lines are yellow and white, some are dotted lines. Dotted lines need to be detected as a single line. Images were loaded as RGB spaces. In OpenCV `cv2.inRange` function can be used to mask images with different colours. [Colour flickers or Colour chart](https://www.rapidtables.com/web/color/RGB_Color.html) can be used to pick specific colours. Following fucntion is used filter yellow and white parts from the images.
+Lines are yellow and white, some are dotted lines. Dotted lines need to be detected as a single line. Images were loaded as RGB spaces. In OpenCV `cv2.inRange` function can be used to mask images with different colours. [Colour flickers or Colour chart](https://www.rapidtables.com/web/color/RGB_Color.html) can be used to pick specific colours. The following function is used to filter yellow and white parts from the images.
 ```python
 def select_rgb_white_yellow(img):
     # white mask
@@ -45,15 +45,15 @@ def select_rgb_white_yellow(img):
     mask = cv2.bitwise_or(w_mask, y_mask)
     return cv2.bitwise_and(img, img,mask=mask)
 ```
-Following are the results after applying above filter  
+Following are the results after applying the above filter.  
 ![](resources/yellow-white-images.png)
 
 ### Select different colour space using OpenCV
 As an example, I used to show HSV colour space and used OpenCV `cv2.COLOR_RGB2HSV` colour code.
 
 #### How HSV and HSL colour spaces are working?
-* H- Hue: Hue is a degree on the color wheel from 0 to 360. 0 is red, 120 is green, 240 is blue.
-* S- Saturation: Saturation is a percentage value; 0% means a shade of gray and 100% is the full color.
+* H - Hue: Hue is a degree on the color wheel from 0 to 360. 0 is red, 120 is green, 240 is blue.
+* S - Saturation: Saturation is a percentage value; 0% means a shade of gray and 100% is the full color.
 * L - Lightness: Lightness is also a percentage; 0% is black, 100% is white.
 
 ![](resources/colour-cylinders.png) 
@@ -66,7 +66,7 @@ def rgb_to_hsv(img):
     return cv2.cvtColor(img, cv2.COLOR_RGB2HSV)
 ```  
 
-Following are the results after applying HSV filter  
+Following are the results after applying the HSV filter  
 
 ![](resources/hsv-images.png) 
 
@@ -75,12 +75,12 @@ Following are the results after applying HSV filter
 def rgb_to_hsv(img):
     return cv2.cvtColor(img, cv2.COLOR_RGB2HLS)
 ```   
-Following are the results after applying HSL filter  
+Following are the results after applying the HSL filter  
 
 ![](resources/hsl_filter.png)
 
 
-Compare with both filters, the HSL filter is good to detect both white and yellow lane lines  
+When compared with both filters, the HSL filter is good to detect both white and yellow lane lines  
 
 ##### Select white and yellow colour spaces using HSL filter
 
@@ -102,21 +102,21 @@ def select_white_yellow(img):
     
 ```
 
-Following are the results after applying combine HSL filter and colour masked filter.  
+Following are the results after applying the combine HSL filter and colour masked filter.  
 
 ![](resources/yellow-white-images.png)
 
 ## Edge Detection
-Upto now we have used some functions to do some image processing techniques to prepare our test images for further image processing. Now we'll extract edges using  some advanced algorithms like Canny edge detection, Hough transformation. Here we'll use OpenCV inbuilt functions to apply these algorithmns. Following steps will be used to detect edges from images.  
+Up to now, we have used some functions to do some image processing techniques to prepare our test images for further image processing. Now we'll extract edges using  some advanced algorithms like Canny edge detection, Hough transformation. Here we'll use OpenCV inbuilt functions to apply these algorithms. Following steps will be used to detect edges from images.  
 
-* Step01 - Grayscaling preared images
-* Step02 - Applying Gaussian filter to smooth gray scaled images
+* Step01 - Gray scaling prepared images
+* Step02 - Applying Gaussian filter to smooth grayscale images
 * Step03 - Canny edge detection from smoothed images
 * Step04 - Hough tranfomation to detect lines from Canny edge detected images
 
 
 ### Grayscaling images
-To grayscale images OpenCV `cv2.cvtColor` function is used with the OpenCV `COLOR_RGB2GRAY` colour code. Following utility function will be used in our pipeline.
+To grayscale images, OpenCV `cv2.cvtColor` function is used with the OpenCV `COLOR_RGB2GRAY` colour code. Following utility function will be used in our pipeline.
 
 ```python
 def grayscale(img):
@@ -128,12 +128,12 @@ def grayscale(img):
     return cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
 ```
 
-After applying above grayscale filter for prepared images, following are the results.  
+After applying the above grayscale filter for prepared images, the following are the results.  
 
 ![](resources/gray-scaled-images.png)
 
-### Smoothing grayscaled images using Gaussian Smoothing
-We'll apply OpenCV `cv2.GaussianBlur` function to smooth our grayscaled images.  
+### Smoothing grayscale images using Gaussian Smoothing
+We'll apply OpenCV `cv2.GaussianBlur` function to smooth our grayscale images.  
 
 ```python
 def grayscale(img):
@@ -170,14 +170,14 @@ Following are the results of Canny edge detector.
 ![](resources/canny-edges-detected-images.png)
 
 ### Hough tranfomation for line detection
-We have detected edges using Canny edge detector algorithm. Now we have to select our interest areas from images to apply Hough trasformation.
+We have detected edges using the Canny edge detector algorithm. Now we have to select our interest areas from images to apply Hough transformation.
 
 #### Select region of interest
-This is the most tricky part in this pipeline building. Since we are going to detect road lane left and right lines which are bounded with vehicle front, we have to select area that is fitted with our requirements. I have manually marked our final results, before we going to do it programatically :). Following are the manual marked images.
+This is the most tricky part of this pipeline building. Since we are going to detect road lane left and right lines which are bounded with vehicle front, we have to select the area that is fitted with our requirements. I have manually marked our final results before we are going to do it programmatically :). Following are the hand-marked images.
 
 ![](resources/canny-edges-detected-images-manual-masked.png)
 
-OpenCV `cv2.fillPoly` was used to select a polygon to caputure our interest ares. Following are the functions used to select interested regions.
+OpenCV `cv2.fillPoly` was used to select a polygon to capture our interest areas. Following are the functions used to select interest regions.
 
 ```python
 def region_of_interest(img, vertices):
@@ -226,12 +226,12 @@ def select_region(img):
     return region_of_interest(img, vertices)
 ```
 
-After applying above functions for Canny detected images, following results were extracted.
+After applying the above functions for Canny detected images, following results were extracted.
 
 ![](resources/roi-images.png)
 
 #### Applying Hough line transformation
-`cv2.HoughLinesP` was used to Hough tranfomation. More theories can be found with this [wikipedia link](https://en.wikipedia.org/wiki/Hough_transform). Following function was used to do Hough transform.
+`cv2.HoughLinesP` was used to Hough transformation. More theories can be found with this [wikipedia link](https://en.wikipedia.org/wiki/Hough_transform). Following function was used to do Hough transform.
 
 ```python
 def hough_lines(image):
@@ -243,7 +243,7 @@ def hough_lines(image):
     return cv2.HoughLinesP(image, rho=1, theta=np.pi/180, threshold=20, minLineLength=20, maxLineGap=300)
 ```
 
-After Hough line trasformation, lines were drawn using following function.
+After Hough line transformation, lines were drawn using the following function.
 
 ```python
 def draw_lines(img, lines, thickness=2, make_copy=True):
@@ -261,19 +261,19 @@ Final results with drawn lines.
 
 ![](resources/draw-lines-images-01.png)
 
-After the chain of steps, our pipeline is ready to detect lane lines from road images. But pipeline is not good enough to go next steps. After applying this pipeline for a separate unit test following things were noticed. 
+After the chain of steps, our pipeline is ready to detect lane lines from road images. But the pipeline is not good enough to go to the next steps. After applying this pipeline for a separate unit test following things were noticed. 
 
 ![](resources/vedio-image-result-multiline.png)
 
-### Optimazation and improvements for draw lines
+### Optimization and improvements for draw lines
 
 #### Averaging lane lines
-We can see there are mutiple lines detected for a lane line. In our case multiple lane lines are not good to proceed. We should come up with an averaged line for that.
+We can see there are multiple lines detected for a lane line. In our case, multiple lane lines are not good to proceed. We should come up with an averaged line for that.
 
 #### Extrapolation lane lines
-Since we are expecting an angular left and right lines, slope of the left must positive and slope of the right must negative. And, there are lane lines not detected fully. Therefore we should extrapolate the line to cover full lane length.  
+Since we are expecting an angular left and right lines, the slope of the left must be positive and the slope of the right must be negative. And, there are lane lines not detected fully. Therefore, we should extrapolate the line to cover the full lane length.  
 
-Following utility functions will be used to do averagin and extrapolation.
+Following utility functions will be used to do averaging and extrapolation.
 
 ```python
 def average_slope_intercept(lines):
@@ -306,7 +306,7 @@ def average_slope_intercept(lines):
     
 ```
 
-Using average_slope_intercept function, we can calculate average slope and intercept for the left lane and right lane. To draw the lanes, slope and intecept neet to be converted into pixel values.
+Using average_slope_intercept function, we can calculate the average slope and intercept for the left lane and right lane. To draw the lanes, slope and intercept need to be converted into pixel values.
 
 ```python
 def make_line_points(y1, y2, line):
@@ -350,12 +350,12 @@ def draw_lane_lines(image, lines, color=[255, 0, 0], thickness=20):
     # image1 and image2 must be the same shape.
     return cv2.addWeighted(image, 1.0, line_image, 0.95, 0.0)
 ```
-After the averaging and extrapolation the images are gave the following results.
+After the averaging and extrapolation, the images give the following results.
 
 ![](resources/draw-line-improved-version.png)
 
 ## Build Pipeline and Test with Video Clips
-Now we have required utility functions to build lane lines ob the roads. Following functions were implemented to build this pipeline.
+Now we have required utility functions to build lane lines on the roads. Following functions were implemented to build this pipeline.
 
 ```python
 def mean_line(line, lines):
@@ -416,14 +416,14 @@ Challenge Clip -
 
 [![Challenge](resources/Challenge.png)](https://youtu.be/FQlkyQmXtiI)
 
-## Indentified Protential Shortcommings
-* In this project we only used Hough line transform. But, there are curve lines can be foud while driving on the roads
-* Selecting a dynamic region vetices for the interest area (ROI) was a challenge due to dyanmic images 
-* There will be a challenge to apply this pipeline, when we have steep roads
+## Identified Potential Shortcomings
+* In this project, we only used Hough line transform. But, there are curve lines that can be found while driving on the roads
+* Selecting dynamic region vertices for the interest area (ROI) was a challenge due to dynamic images 
+* There will be a challenge to apply this pipeline when we have steep roads
 
-## Suggest Improvements
+## Suggested Improvements
 * For further improvements, CNN(Convolutional Neural Network) can be applied.
-* Provided test images and video clips contains clear roads and great weather conditions. This pipeline can be improved with different enviromental condtions and can be found more insights
+* Provided test images and video clips contain clear roads and great weather conditions. This pipeline can be improved with different environmental conditions and can be found more insights.
 
 ## References
 * [Introduction to Computer Vision - Udacity](https://www.udacity.com/course/introduction-to-computer-vision--ud810)
