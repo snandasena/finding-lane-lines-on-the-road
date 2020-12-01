@@ -243,7 +243,7 @@ def hough_lines(image):
     return cv2.HoughLinesP(image, rho=1, theta=np.pi/180, threshold=20, minLineLength=20, maxLineGap=300)
 ```
 
-After Hough line trasformation, lines were drawan using following function.
+After Hough line trasformation, lines were drawn using following function.
 
 ```python
 def draw_lines(img, lines, thickness=2, make_copy=True):
@@ -257,6 +257,6 @@ def draw_lines(img, lines, thickness=2, make_copy=True):
     
 ```
 
-Final results with drawan lines.
+Final results with drawn lines.
 
 ![](resources/draw-lines-images-01.png)
