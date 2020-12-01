@@ -168,3 +168,11 @@ def detect_edges(img, low_threshold = 50, high_threshold=150):
 Following are the results of Canny edge detector.
 
 ![](resources/canny-edges-detected-images.png)
+
+### Hough tranfomation for line detection
+We have detected edges using Canny edge detector algorithm. Now we have to select our interest areas from images to apply Hough trasformation.
+
+#### Select region of interest
+This is the most tricky part in this pipeline building. Since we are going to detect road lane left and right lines which are bounded with vehicle front, we have to select area that is fitted with our requirements. I have manually marked our final results, before we going to do it programatically :). Following are the manual marked images.
+
+![](resources/canny-edges-detected-images-manual-masked.png)
