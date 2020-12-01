@@ -18,13 +18,13 @@ This project consists of the following major files and folders.
 * test_videos - **Test videos directory**
 * test_videos_output - **Output directory**
 * opencv - **Sample OpenCV works**
-* resources - **Required images for writeup**
+* resources - **Required images for write-up**
 * requirements,txt - **Python dependencies** 
 
 [Running Instruction](HOW_TO_RUN.md)
 
 ## Loading Test Images
-**matplotlib** was used to visualize the provided and generated test image. Following are the provided test images.
+**matplotlib** was used to visualize the provided and generated test images. Following are the provided test images.
 ![](resources/test-images.png)
 
 ## Image Processing
