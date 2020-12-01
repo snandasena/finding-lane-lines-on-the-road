@@ -29,7 +29,7 @@ This project consits of following major files and folders.
 
 ## Image Processing
 ### Colour selection
-Lines are yellow and white, some are dotted lines. Dotted lines need to be detected as a single line. Images were loaded as RGB spaces. In OpenCV `cv2.inRange` function can be used to mask images with different colours. [Colour flickers or Colour chart](https://www.rapidtables.com/web/color/RGB_Color.html) can be used to fick specific colours. Following fucntion is used filter yellow and white parts from the iamges.
+Lines are yellow and white, some are dotted lines. Dotted lines need to be detected as a single line. Images were loaded as RGB spaces. In OpenCV `cv2.inRange` function can be used to mask images with different colours. [Colour flickers or Colour chart](https://www.rapidtables.com/web/color/RGB_Color.html) can be used to pick specific colours. Following fucntion is used filter yellow and white parts from the iamges.
 ```python
 def select_rgb_white_yellow(img):
     # white mask
@@ -47,3 +47,15 @@ def select_rgb_white_yellow(img):
 ```
 Following are the results after applying above filter  
 ![](resources/yellow-white-images.png)
+
+### Select different colour space using OpenCV
+As an example, I used to show HSV colour space and used OpenCV `cv2.COLOR_RGB2HSV` colour code.
+
+#### How HSV and HSL colour spaces are working?
+* H- Hue: Hue is a degree on the color wheel from 0 to 360. 0 is red, 120 is green, 240 is blue.
+* S- Saturation: Saturation is a percentage value; 0% means a shade of gray and 100% is the full color.
+* L - Lightness: Lightness is also a percentage; 0% is black, 100% is white.
+
+![](resources/colour-cylinders.png) 
+
+[Image Source](https://en.wikipedia.org/wiki/HSL_and_HSV)
