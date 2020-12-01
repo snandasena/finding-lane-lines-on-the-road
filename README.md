@@ -70,7 +70,7 @@ Following are the results after applying HSV filter
 
 ![](resources/hsv-images.png) 
 
-##### HSL Filter
+##### HSL filter
 ```python
 def rgb_to_hsv(img):
     return cv2.cvtColor(img, cv2.COLOR_RGB2HLS)
@@ -82,7 +82,7 @@ Following are the results after applying HSL filter
 
 Compare with both filters, the HSL filter is good to detect both white and yellow lane lines  
 
-##### Select white yellow colour spaces using HSL filter
+##### Select white and yellow colour spaces using HSL filter
 
 ```python
 def select_white_yellow(img):
@@ -106,7 +106,7 @@ Following are the results after applying combine HSL filter and colour masked fi
 
 ![](resources/yellow-white-images.png)
 
-## Edge detection
+## Edge Detection
 Upto now we have used some functions to do some image processing techniques to prepare our test images for further image processing. Now we'll extract edges using  some advanced algorithms like Canny edge detection, Hough transformation. Here we'll use OpenCV inbuilt functions to apply these algorithmns. Following steps will be used to detect edges from images.  
 
 * Step01 - Grayscaling preared images
@@ -149,7 +149,7 @@ Following are the results, after applying **GaussianBlur**.
 
 ![](resources/gaussian-smoothing-images.png)
 
-### Detecting edges using Canny edge detection
+### Detecting edges using Canny edge detector
 Now we'll apply Canny edge detection for smoothed images. Following is the utility fuction that is used to detect edges from images.
 
 ```python
@@ -354,7 +354,7 @@ After the averaging and extrapolation the images are gave the following results.
 
 ![](resources/draw-line-improved-version.png)
 
-## Build pipeline and test with video clips
+## Build Pipeline and Test with Video Clips
 Now we have required utility functions to build lane lines ob the roads. Following functions were implemented to build this pipeline.
 
 ```python
@@ -415,3 +415,23 @@ Solid White Right -
 Challenge Clip - 
 
 [![Challenge](resources/Challenge.png)](https://youtu.be/FQlkyQmXtiI)
+
+## Indentified Protential Shortcommings
+* 
+*
+
+## Suggest Improvements
+*
+*
+
+## References
+* [Introduction to Computer Vision - Udacity](https://www.udacity.com/course/introduction-to-computer-vision--ud810)
+* [OpenCV official documents](https://docs.opencv.org/4.4.0/index.html)
+* [OpenCV my git repo C++ samples](https://github.com/snandasena/opencv-cpp-examples)
+* [Canny edge detection](https://en.wikipedia.org/wiki/Canny_edge_detector)
+* [Hough tranform](https://en.wikipedia.org/wiki/Hough_transform)
+* [Gaussian blur](https://en.wikipedia.org/wiki/Gaussian_blur)
+* [Naoki medium blog](https://naokishibuya.medium.com/finding-lane-lines-on-the-road-30cf016a1165)
+* [HSV and HSL](https://www.w3schools.com/colors/colors_hsl.asp)
+
+##
