@@ -271,6 +271,82 @@ After the chain of steps, our pipeline is ready to detect lane lines from road i
 We can see there are mutiple lines detected for a lane line. In our case multiple lane lines are not good to proceed. We should come up with an averaged line for that.
 
 #### Extrapolation lane lines
-Since we are expecting an angular left and right lines, slope of the left must positive and slope of the right must negative. And, there are lane lines not detected fully. Therefore we should extrapolate the line to cover full lane length.
+Since we are expecting an angular left and right lines, slope of the left must positive and slope of the right must negative. And, there are lane lines not detected fully. Therefore we should extrapolate the line to cover full lane length.  
 
+Following utility functions will be used to do averagin and extrapolation
 
+```python
+def average_slope_intercept(lines):
+    left_lines    = [] # (slope, intercept)
+    left_weights  = [] # (length,)
+    right_lines   = [] # (slope, intercept)
+    right_weights = [] # (length,)
+    
+    for line in lines:
+        for x1, y1, x2, y2 in line:
+            if x2==x1:
+                continue # ignore a vertical line
+            
+            # Y = mX + b
+            slope = (y2-y1)/(x2-x1) # m
+            intercept = y1 - slope*x1 # b
+            length = np.sqrt((y2-y1)**2+(x2-x1)**2)
+            if slope < 0: # y is reversed in image
+                left_lines.append((slope, intercept))
+                left_weights.append((length))
+            else:
+                right_lines.append((slope, intercept))
+                right_weights.append((length))
+    
+    # add more weight to longer lines    
+    left_lane  = np.dot(left_weights,  left_lines) /np.sum(left_weights)  if len(left_weights) >0 else None
+    right_lane = np.dot(right_weights, right_lines)/np.sum(right_weights) if len(right_weights)>0 else None
+    
+    return left_lane, right_lane # (slope, intercept), (slope, intercept)
+    
+```
+
+Using average_slope_intercept function, we can calculate average slope and intercept for the left lane and right lane. To draw the lanes, slope and intecept neet to be converted into pixel values.
+
+```python
+def make_line_points(y1, y2, line):
+    """
+    Convert a line represented in slope and intercept into pixel points
+    """
+    if line is None:
+        return None
+    
+    slope, intercept = line
+    
+    # make sure everything is integer as cv2.line requires it
+    x1 = int((y1 - intercept)/slope)
+    x2 = int((y2 - intercept)/slope)
+    y1 = int(y1)
+    y2 = int(y2)
+    
+    return ((x1, y1), (x2, y2))
+    
+```
+```python
+def lane_lines(image, lines):
+    left_lane, right_lane = average_slope_intercept(lines)
+    
+    y1 = image.shape[0] # bottom of the image
+    y2 = y1*0.6         # slightly lower than the middle
+
+    left_line  = make_line_points(y1, y2, left_lane)
+    right_line = make_line_points(y1, y2, right_lane)
+    
+    return left_line, right_line
+```
+```python 
+def draw_lane_lines(image, lines, color=[255, 0, 0], thickness=20):
+    # make a separate image to draw lines and combine with the orignal later
+    line_image = np.zeros_like(image)
+    for line in lines:
+        if line is not None:
+            cv2.line(line_image, *line,  color, thickness)
+    # image1 * α + image2 * β + λ
+    # image1 and image2 must be the same shape.
+    return cv2.addWeighted(image, 1.0, line_image, 0.95, 0.0)
+```
