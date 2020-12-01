@@ -26,3 +26,6 @@ This project consits of following major files and folders.
 ## Loading Test Images
 **matplotlib** was used to visualize provided and generated test image. Following are the provided test iamges.
 ![](resources/test-images.png)
+
+## Image Processing
+### Colour selection
