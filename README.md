@@ -230,5 +230,33 @@ After applying above functions for Canny detected images, following results were
 
 ![](resources/roi-images.png)
 
-#### Applying Hough transformation
-`cv2.HoughLinesP` was used to Hough tranfomation. More theories can be found with this [wikipedia link](https://en.wikipedia.org/wiki/Hough_transform).
+#### Applying Hough line transformation
+`cv2.HoughLinesP` was used to Hough tranfomation. More theories can be found with this [wikipedia link](https://en.wikipedia.org/wiki/Hough_transform). Following function was used to do Hough transform.
+
+```python
+def hough_lines(image):
+    """
+    `image` should be the output of a Canny transform.
+
+    Returns hough lines (not the image with lines)
+    """
+    return cv2.HoughLinesP(image, rho=1, theta=np.pi/180, threshold=20, minLineLength=20, maxLineGap=300)
+```
+
+After Hough line trasformation, lines were drawan using following function.
+
+```python
+def draw_lines(img, lines, thickness=2, make_copy=True):
+    # the lines returned by cv2.HoughLinesP has the shape (-1, 1, 4)
+    if make_copy:
+        img = np.copy(img) # don't want to modify the original
+    for line in lines:
+        for x1,y1,x2,y2 in line:
+            cv2.line(img, (x1, y1), (x2, y2), [255, 0, 0], thickness)
+    return img
+    
+```
+
+Final results with drawan lines.
+
+![](resources/draw-lines-images-01.png)
