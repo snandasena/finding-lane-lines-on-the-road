@@ -229,3 +229,6 @@ def select_region(img):
 After applying above functions for Canny detected images, following results were extracted.
 
 ![](resources/roi-images.png)
+
+#### Applying Hough transformation
+`cv2.HoughLinesP` was used to Hough tranfomation. More theories can be found with this [wikipedia link](https://en.wikipedia.org/wiki/Hough_transform).
