@@ -266,6 +266,11 @@ After the chain of steps, our pipeline is ready to detect lane lines from road i
 ![](resources/vedio-image-result-multiline.png)
 
 ### Optimazation and improvements for draw lines
+
+#### Averaging lane lines
 We can see there are mutiple lines detected for a lane line. In our case multiple lane lines are not good to proceed. We should come up with an averaged line for that.
+
+#### Extrapolation lane lines
+Since we are expecting an angular left and right lines, slope of the left must positive and slope of the right must negative. And, there are lane lines not detected fully. Therefore we should extrapolate the line to cover full lane length.
 
 
