@@ -404,7 +404,7 @@ out_video = out_dir+out_name
 ## Results
 Output videos can be found [](test_videos_output/) or with the following links.  
 
-Solid Yello Left -  
+Solid Yellow Left -  
 
 [![Solid Yellow Left](resources/solid-yello-left.png)](https://youtu.be/KHMm9bNizo8) 
 
@@ -412,6 +412,6 @@ Solid White Right -
 
 [![Solid White Right](resources/solid-white-right.png)](https://youtu.be/jqXXYEpGqfg)  
 
-Challeng Clip - 
+Challenge Clip - 
 
 [![Challenge](resources/Challenge.png)](https://youtu.be/FQlkyQmXtiI)
