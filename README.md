@@ -109,10 +109,27 @@ Following are the results after applying combine HSL filter and colour masked fi
 ## Edge detection
 Upto now we have used some functions to do some image processing techniques to prepare our test images for further image processing. Now we'll extract edges using  some advanced algorithms like Canny edge detection, Hough transformation. Here we'll use OpenCV inbuilt functions to apply these algorithmns. Following steps will be used to detect edges from images.  
 
-* Step01 - Gray scaling preared images
+* Step01 - Grayscaling preared images
 * Step02 - Applying Gaussian filter to smooth gray scaled images
 * Step03 - Canny edge detection from smoothed images
 * Step04 - Hough tranfomation to detect lines from Canny edge detected images
 
 
-### 
+### Grayscaling images
+To grayscale images OpenCV `cv2.cvtColor` function is used with the OpenCV `COLOR_RGB2GRAY` colour code. Following utility function will be used in our pipeline.
+
+```python
+def grayscale(img):
+    """
+    This function is used to convert RGB images to gray scale iamges
+    :param img: input image
+    :return: gray scaled image
+    """
+    return cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
+```
+
+After applying above grayscale filter for prepared images, following are the results.  
+
+![](resources/gray-scaled-images.png)
+    
+
