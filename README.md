@@ -1,5 +1,5 @@
 # Finding Lane Lines on the Road
-![](resources/final-video-capture.png)
+[![](resources/final-video-capture.png)](https://youtu.be/KHMm9bNizo8)
 
 ## Introduction
 In this project we are going to detect lane line on the road. Inputs were provided as a video clips and annotations were done with provided input road images. Our goal to detect lane line using annotated road images. Following learning objectives will be covered from this projects.
@@ -131,5 +131,51 @@ def grayscale(img):
 After applying above grayscale filter for prepared images, following are the results.  
 
 ![](resources/gray-scaled-images.png)
-    
 
+### Smoothing grayscaled images using Gaussian Smoothing
+We'll apply OpenCV `cv2.GaussianBlur` function to smooth our grayscaled images.  
+
+```python
+def grayscale(img):
+    """
+    This function is used to convert RGB images to gray scale iamges
+    :param img: input image
+    :return: gray scaled image
+    """
+    return cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
+```
+
+Following are the results, after applying **GaussianBlur**.
+
+![](resources/gaussian-smoothing-images.png)
+
+### Detecting edges using Canny edge detection
+Now we'll apply Canny edge detection for smoothed images. Following is the utility fuction that is used to detect edges from images.
+
+```python
+def detect_edges(img, low_threshold = 50, high_threshold=150):
+    """
+    This utility function is used to detect edges from input images
+    :param img:
+    :param low_threshold:
+    :param high_threshold:
+    :return: A gray scaled image only with edges
+    """
+    return cv2.Canny(img,low_threshold, high_threshold)
+    
+ ```
+ 
+Following are the results of Canny edge detector.
+
+![](resources/canny-edges-detected-images.png)
+
+### Hough tranfomation for line detection
+We have detected edges using Canny edge detector algorithm. Now we have to select our interest areas from images to apply Hough trasformation.
+
+#### Select region of interest
+This is the most tricky part in this pipeline building. Since we are going to detect road lane left and right lines which are bounded with vehicle front, we have to select area that is fitted with our requirements. I have manually marked our final results, before we going to do it programatically :). Following are the manual marked images.
+
+![](resources/canny-edges-detected-images-manual-masked.png)
+
+
+OpenCV 
