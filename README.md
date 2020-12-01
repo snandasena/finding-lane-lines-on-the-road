@@ -29,7 +29,7 @@ This project consits of following major files and folders.
 
 ## Image Processing
 ### Colour selection
-Lines are yellow and white, some are dotted lines. Dotted lines need to be detected as a single line. Images were loaded as RGB spaces. In OpenCV `cv2.inRange` function can be used to mask images with different colours. [Colour flickers or Colour chart](https://www.rapidtables.com/web/color/RGB_Color.html) can be used to pick specific colours. Following fucntion is used filter yellow and white parts from the iamges.
+Lines are yellow and white, some are dotted lines. Dotted lines need to be detected as a single line. Images were loaded as RGB spaces. In OpenCV `cv2.inRange` function can be used to mask images with different colours. [Colour flickers or Colour chart](https://www.rapidtables.com/web/color/RGB_Color.html) can be used to pick specific colours. Following fucntion is used filter yellow and white parts from the images.
 ```python
 def select_rgb_white_yellow(img):
     # white mask
@@ -105,3 +105,14 @@ def select_white_yellow(img):
 Following are the results after applying combine HSL filter and colour masked filter.  
 
 ![](resources/yellow-white-images.png)
+
+## Edge detection
+Upto now we have used some functions to do some image processing techniques to prepare our test images for further image processing. Now we'll extract edges using  some advanced algorithms like Canny edge detection, Hough transformation. Here we'll use OpenCV inbuilt functions to apply these algorithmns. Following steps will be used to detect edges from images.  
+
+* Step01 - Gray scaling preared images
+* Step02 - Applying Gaussian filter to smooth gray scaled images
+* Step03 - Canny edge detection from smoothed images
+* Step04 - Hough tranfomation to detect lines from Canny edge detected images
+
+
+### 
