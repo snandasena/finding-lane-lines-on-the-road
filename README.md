@@ -401,3 +401,9 @@ out_name = "solidYellowLeft.mp4"
 out_video = out_dir+out_name
 %time out_vedio = detect_lanes_from_video(out_name,out_name)
 ```
+## Results
+Output videos can be found [](test_videos_output/) or with the following links.  
+
+Solid Yello Left -  
+
+[![Solid Yellow Left](resources/solid-yello-left.png)](https://youtu.be/KHMm9bNizo8) 
