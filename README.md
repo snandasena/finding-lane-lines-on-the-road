@@ -350,3 +350,6 @@ def draw_lane_lines(image, lines, color=[255, 0, 0], thickness=20):
     # image1 and image2 must be the same shape.
     return cv2.addWeighted(image, 1.0, line_image, 0.95, 0.0)
 ```
+After the averaging and extrapolation the images are gave the following results.
+
+![](resources/draw-line-improved-version.png)
