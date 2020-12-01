@@ -29,7 +29,7 @@ This project consits of following major files and folders.
 
 ## Image Processing
 ### Colour selection
-Lines are yellow and white, some are dotted lines. Dotted lines need to be detected as a single line. Images were loaded as RGB spaces. In OpenCV `cv2.inRange` function can be used to mask images with different colours. [Colour flickers or Colour chart](https://www.rapidtables.com/web/color/RGB_Color.html) can be used to fick specific colours. Following fucntion is used filter yellow and white parts from the iamges.
+Lines are yellow and white, some are dotted lines. Dotted lines need to be detected as a single line. Images were loaded as RGB spaces. In OpenCV `cv2.inRange` function can be used to mask images with different colours. [Colour flickers or Colour chart](https://www.rapidtables.com/web/color/RGB_Color.html) can be used to pick specific colours. Following fucntion is used filter yellow and white parts from the iamges.
 ```python
 def select_rgb_white_yellow(img):
     # white mask
@@ -46,4 +46,62 @@ def select_rgb_white_yellow(img):
     return cv2.bitwise_and(img, img,mask=mask)
 ```
 Following are the results after applying above filter  
+![](resources/yellow-white-images.png)
+
+### Select different colour space using OpenCV
+As an example, I used to show HSV colour space and used OpenCV `cv2.COLOR_RGB2HSV` colour code.
+
+#### How HSV and HSL colour spaces are working?
+* H- Hue: Hue is a degree on the color wheel from 0 to 360. 0 is red, 120 is green, 240 is blue.
+* S- Saturation: Saturation is a percentage value; 0% means a shade of gray and 100% is the full color.
+* L - Lightness: Lightness is also a percentage; 0% is black, 100% is white.
+
+![](resources/colour-cylinders.png) 
+
+Image was croped: https://en.wikipedia.org/wiki/HSL_and_HSV  
+
+##### HSV filter
+```python
+def rgb_to_hsv(img):
+    return cv2.cvtColor(img, cv2.COLOR_RGB2HSV)
+```  
+
+Following are the results after applying HSV filter  
+
+![](resources/hsv-images.png) 
+
+##### HSL Filter
+```python
+def rgb_to_hsv(img):
+    return cv2.cvtColor(img, cv2.COLOR_RGB2HLS)
+```   
+Following are the results after applying HSL filter  
+
+![](resources/hsl_filter.png)
+
+
+Compare with both filters, the HSL filter is good to detect both white and yellow lane lines  
+
+##### Select white yellow colour spaces using HSL filter
+
+```python
+def select_white_yellow(img):
+    # convert RGB colour space to HSL colour space
+    converted_img = rgb_to_hsl(img)
+    # white colour mask
+    lower_bound = np.uint8([0, 200, 0])
+    upper_bound = np.uint8([255, 255, 255])
+    w_mask = cv2.inRange(converted_img, lower_bound, upper_bound)
+    # yellow colour mask
+    lower_bound = np.uint8([10, 0, 100])
+    y_mask = cv2.inRange(converted_img, lower_bound, upper_bound)
+
+    # combine the mask
+    mask = cv2.bitwise_or(w_mask, y_mask)
+    return cv2.bitwise_and(img, img, mask=mask)
+    
+```
+
+Following are the results after applying combine HSL filter and colour masked filter.  
+
 ![](resources/yellow-white-images.png)
