@@ -435,6 +435,7 @@ Challenge Clip -
 * [Gaussian blur](https://en.wikipedia.org/wiki/Gaussian_blur)
 * [Naoki medium blog](https://naokishibuya.medium.com/finding-lane-lines-on-the-road-30cf016a1165)
 * [HSV and HSL](https://www.w3schools.com/colors/colors_hsl.asp)
+* [CS231n: Convolutional Neural Networks for Visual Recognition](http://cs231n.stanford.edu/)
 
 ## Acknowledgments
 Big thank you to [Udacity](https://www.udacity.com) for providing the template code for this project.
