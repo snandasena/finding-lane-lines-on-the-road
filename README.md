@@ -58,4 +58,4 @@ As an example, I used to show HSV colour space and used OpenCV `cv2.COLOR_RGB2HS
 
 ![](resources/colour-cylinders.png) 
 
-[Image Source](https://en.wikipedia.org/wiki/HSL_and_HSV)
+Image was croped: https://en.wikipedia.org/wiki/HSL_and_HSV
