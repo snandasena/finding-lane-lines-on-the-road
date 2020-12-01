@@ -426,6 +426,7 @@ Challenge Clip -
 
 ## References
 * [Introduction to Computer Vision - Udacity](https://www.udacity.com/course/introduction-to-computer-vision--ud810)
+* [Self driving can engineer - Udacity](https://www.udacity.com/course/self-driving-car-engineer-nanodegree--nd013)
 * [OpenCV official documents](https://docs.opencv.org/4.4.0/index.html)
 * [OpenCV my git repo C++ samples](https://github.com/snandasena/opencv-cpp-examples)
 * [Canny edge detection](https://en.wikipedia.org/wiki/Canny_edge_detector)
@@ -434,4 +435,5 @@ Challenge Clip -
 * [Naoki medium blog](https://naokishibuya.medium.com/finding-lane-lines-on-the-road-30cf016a1165)
 * [HSV and HSL](https://www.w3schools.com/colors/colors_hsl.asp)
 
-##
+## Acknowledgments
+Big thank you to [Udacity](https://www.udacity.com) for providing the template code for this project.
