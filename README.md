@@ -177,5 +177,51 @@ This is the most tricky part in this pipeline building. Since we are going to de
 
 ![](resources/canny-edges-detected-images-manual-masked.png)
 
+OpenCV `cv2.fillPoly` was used to select a polygon to caputure our interest ares. Following are the functions used to select interested regions.
 
-OpenCV 
+```python
+def region_of_interest(img, vertices):
+    """
+    Applies an image mask.
+
+    Only keeps the region of the image defined by the polygon
+    formed from `vertices`. The rest of the image is set to black.
+    `vertices` should be a numpy array of integer points.
+    """
+    #defining a blank mask to start with
+    mask = np.zeros_like(img)
+
+    #defining a 3 channel or 1 channel color to fill the mask with depending on the input image
+    if len(img.shape) > 2:
+        channel_count = img.shape[2]  # i.e. 3 or 4 depending on your image
+        ignore_mask_color = (255,) * channel_count
+    else:
+        ignore_mask_color = 255
+
+    #filling pixels inside the polygon defined by "vertices" with the fill color
+    cv2.fillPoly(mask, vertices, ignore_mask_color)
+
+    #returning the image only where mask pixels are nonzero
+    masked_image = cv2.bitwise_and(img, mask)
+    return masked_image
+```
+```python
+def select_region(img):
+    """
+    This is used to select an interest region. Here our major interest points are left lane line and right lane line
+    :param img:
+    :return: Seleted region as a gray scaled edge image
+    """
+#     imshape = img.shape
+    # Initial vertices selection with hard coded pixels
+    # vertices = np.array([[(0,imshape[0]),(450, 290), (490, 290), (imshape[1],imshape[0])]], dtype=np.int32)
+    
+    # Improved version of vertices selection with dyanamic ratios
+    height,width = img.shape[:2]
+    bottom_left = [width*0.1 , height*0.95]
+    top_left = [width*0.4 , height * 0.6]
+    bottom_right = [width * 0.9, height * 0.95]
+    top_right = [width * 0.6, height * 0.6]
+    vertices = np.array([[bottom_left, top_left, top_right, bottom_right]], dtype=np.int32)
+    return region_of_interest(img, vertices)
+
