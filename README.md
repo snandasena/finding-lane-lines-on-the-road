@@ -260,3 +260,9 @@ def draw_lines(img, lines, thickness=2, make_copy=True):
 Final results with drawn lines.
 
 ![](resources/draw-lines-images-01.png)
+
+After the chain of steps, our pipeline is ready to detect lane lines from road images. But pipeline was not good enough to go next steps. After applying this pipeline for a separate unit test following things were noticed.  
+
+![](resources/vedio-image-result-multiline.png)
+
+
