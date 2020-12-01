@@ -14259,7 +14259,15 @@ a.anchor-link {
 
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="Import-Packages">Import Packages<a class="anchor-link" href="#Import-Packages">&#182;</a></h3>
+<h3 id="Project-Find-Lane-Lines-on-the-Road">Project Find Lane Lines on the Road<a class="anchor-link" href="#Project-Find-Lane-Lines-on-the-Road">&#182;</a></h3><p>In this project more focus on introduction to computer vison with following learning objectives.</p>
+<ul>
+<li>Basic usage of OpenCV Python APIs</li>
+<li>Basic image processing technues such as colour scale changes, colour selection</li>
+<li>Images edge detection user Canny edge detector (OpenCV will be used to apply these theories)</li>
+<li>Required images' region selection. Both hard coded and dynamic selections will be used</li>
+<li>Hough tranfomation line detection (OpenCV will be used to appy these alogorithnms)</li>
+</ul>
+
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
@@ -14267,7 +14275,8 @@ a.anchor-link {
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[1]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">glob</span>  <span class="c1"># OS dependencies to get file system details</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Import Packages</span>
+<span class="kn">import</span> <span class="nn">glob</span>  <span class="c1"># OS dependencies to get file system details</span>
 
 <span class="kn">import</span> <span class="nn">cv2</span>
 <span class="c1">#importing some useful packages</span>
@@ -14672,7 +14681,8 @@ Thresholding Operations using inRange</a></li>
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h4 id="Detect-edges-using-OpenCV-Canny-edge-detector">Detect edges using OpenCV Canny edge detector<a class="anchor-link" href="#Detect-edges-using-OpenCV-Canny-edge-detector">&#182;</a></h4>
+<h4 id="Detect-edges-using-OpenCV-Canny-edge-detector">Detect edges using OpenCV Canny edge detector<a class="anchor-link" href="#Detect-edges-using-OpenCV-Canny-edge-detector">&#182;</a></h4><p><a href="https://en.wikipedia.org/wiki/Canny_edge_detector">Ref</a></p>
+
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
@@ -14682,11 +14692,11 @@ Thresholding Operations using inRange</a></li>
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">detect_edges</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">low_threshold</span> <span class="o">=</span> <span class="mi">50</span><span class="p">,</span> <span class="n">high_threshold</span><span class="o">=</span><span class="mi">150</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-
+<span class="sd">    This utility function is used to detect edges from input images</span>
 <span class="sd">    :param img:</span>
 <span class="sd">    :param low_threshold:</span>
 <span class="sd">    :param high_threshold:</span>
-<span class="sd">    :return:</span>
+<span class="sd">    :return: A gray scaled image only with edges</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">cv2</span><span class="o">.</span><span class="n">Canny</span><span class="p">(</span><span class="n">img</span><span class="p">,</span><span class="n">low_threshold</span><span class="p">,</span> <span class="n">high_threshold</span><span class="p">)</span>
 
@@ -14762,9 +14772,9 @@ Thresholding Operations using inRange</a></li>
 
 <span class="k">def</span> <span class="nf">select_region</span><span class="p">(</span><span class="n">img</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-
+<span class="sd">    This is used to select an interest region. Here our major interest points are left lane line and right lane line</span>
 <span class="sd">    :param img:</span>
-<span class="sd">    :return:</span>
+<span class="sd">    :return: Seleted region as a gray scaled edge image</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 <span class="c1">#     imshape = img.shape</span>
     <span class="c1"># Initial vertices selection with hard coded pixels</span>
@@ -14940,7 +14950,7 @@ negative. And, there are lane lines not detected fully. Therefore we should extr
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>Using <code>find_average_slop_intercept</code> function, we can calculate average slope and intercept for the left lane and right lane. To draw the lanes, slope and intecept neet to be converted into pixel values.</p>
+<p>Using <code>average_slope_intercept</code> function, we can calculate average slope and intercept for the left lane and right lane. To draw the lanes, slope and intecept neet to be converted into pixel values.</p>
 
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
@@ -15049,6 +15059,12 @@ negative. And, there are lane lines not detected fully. Therefore we should extr
 
 </div>
 
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h3 id="Building-pipeline">Building pipeline<a class="anchor-link" href="#Building-pipeline">&#182;</a></h3><p>No we have required image lane line detect utilities. We can build our pipeline here</p>
+
+</div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
@@ -15056,6 +15072,7 @@ negative. And, there are lane lines not detected fully. Therefore we should extr
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">deque</span>
+
 <span class="k">def</span> <span class="nf">mean_line</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="n">lines</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">line</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
@@ -15066,18 +15083,22 @@ negative. And, there are lane lines not detected fully. Therefore we should extr
     <span class="k">return</span> <span class="n">line</span>
 
 <span class="k">def</span> <span class="nf">process_image</span><span class="p">(</span><span class="n">img</span><span class="p">):</span>
-    <span class="n">w_y_img</span> <span class="o">=</span> <span class="n">select_white_yellow</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
-    <span class="n">gray_img</span> <span class="o">=</span> <span class="n">grayscale</span><span class="p">(</span><span class="n">w_y_img</span><span class="p">)</span>
-    <span class="n">smooth_gray</span> <span class="o">=</span> <span class="n">apply_smoothing</span><span class="p">(</span><span class="n">gray_img</span><span class="p">)</span>
-    <span class="n">edges</span> <span class="o">=</span> <span class="n">detect_edges</span><span class="p">(</span><span class="n">smooth_gray</span><span class="p">)</span>
-    <span class="n">roi_img</span> <span class="o">=</span> <span class="n">select_region</span><span class="p">(</span><span class="n">edges</span><span class="p">)</span>
-    <span class="n">lines</span> <span class="o">=</span> <span class="n">hough_lines</span><span class="p">(</span><span class="n">roi_img</span><span class="p">)</span>
-    <span class="n">l_line</span> <span class="p">,</span> <span class="n">r_line</span> <span class="o">=</span> <span class="n">lane_lines</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">lines</span><span class="p">)</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This is used to build our road lane line detect pipeline</span>
+<span class="sd">    :param imag -</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">w_y_img</span> <span class="o">=</span> <span class="n">select_white_yellow</span><span class="p">(</span><span class="n">img</span><span class="p">)</span> <span class="c1"># Extracted white-yellow image</span>
+    <span class="n">gray_img</span> <span class="o">=</span> <span class="n">grayscale</span><span class="p">(</span><span class="n">w_y_img</span><span class="p">)</span> <span class="c1"># gray scaled iamge</span>
+    <span class="n">smooth_gray</span> <span class="o">=</span> <span class="n">apply_smoothing</span><span class="p">(</span><span class="n">gray_img</span><span class="p">)</span> <span class="c1"># Gaussian smoothing image</span>
+    <span class="n">edges</span> <span class="o">=</span> <span class="n">detect_edges</span><span class="p">(</span><span class="n">smooth_gray</span><span class="p">)</span> <span class="c1"># Canny edge detected iamge</span>
+    <span class="n">roi_img</span> <span class="o">=</span> <span class="n">select_region</span><span class="p">(</span><span class="n">edges</span><span class="p">)</span> <span class="c1"># selected rion image</span>
+    <span class="n">lines</span> <span class="o">=</span> <span class="n">hough_lines</span><span class="p">(</span><span class="n">roi_img</span><span class="p">)</span> <span class="c1"># Hough transformed iamge</span>
+    <span class="n">l_line</span> <span class="p">,</span> <span class="n">r_line</span> <span class="o">=</span> <span class="n">lane_lines</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">lines</span><span class="p">)</span> <span class="c1"># separated left and right lane lines</span>
 
-    <span class="n">l_line</span> <span class="o">=</span> <span class="n">mean_line</span><span class="p">(</span><span class="n">l_line</span><span class="p">,</span> <span class="n">deque</span><span class="p">(</span><span class="n">maxlen</span><span class="o">=</span><span class="mi">50</span><span class="p">))</span>
-    <span class="n">r_line</span> <span class="o">=</span> <span class="n">mean_line</span><span class="p">(</span><span class="n">r_line</span><span class="p">,</span> <span class="n">deque</span><span class="p">(</span><span class="n">maxlen</span><span class="o">=</span><span class="mi">50</span><span class="p">))</span>
+    <span class="n">l_line</span> <span class="o">=</span> <span class="n">mean_line</span><span class="p">(</span><span class="n">l_line</span><span class="p">,</span> <span class="n">deque</span><span class="p">(</span><span class="n">maxlen</span><span class="o">=</span><span class="mi">50</span><span class="p">))</span> <span class="c1"># apply averaging and extract single line left lane line</span>
+    <span class="n">r_line</span> <span class="o">=</span> <span class="n">mean_line</span><span class="p">(</span><span class="n">r_line</span><span class="p">,</span> <span class="n">deque</span><span class="p">(</span><span class="n">maxlen</span><span class="o">=</span><span class="mi">50</span><span class="p">))</span> <span class="c1"># appy averaging and extract single line right lane line</span>
 
-    <span class="k">return</span> <span class="n">draw_lane_lines</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="p">(</span><span class="n">l_line</span><span class="p">,</span> <span class="n">r_line</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">draw_lane_lines</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="p">(</span><span class="n">l_line</span><span class="p">,</span> <span class="n">r_line</span><span class="p">))</span> <span class="c1"># draw lane line and return lane line drawn iamge</span>
 </pre></div>
 
      </div>
@@ -15107,11 +15128,11 @@ negative. And, there are lane lines not detected fully. Therefore we should extr
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[20]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">out_dir</span> <span class="o">=</span> <span class="s2">&quot;test_videos_output/&quot;</span>
-<span class="k">def</span> <span class="nf">detect_lanes_from_video</span><span class="p">(</span><span class="n">inout</span><span class="p">,</span> <span class="n">output</span><span class="p">):</span>
-    <span class="n">clip1</span> <span class="o">=</span> <span class="n">VideoFileClip</span><span class="p">(</span><span class="s2">&quot;test_videos/&quot;</span><span class="o">+</span><span class="n">inout</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">out_dir</span> <span class="o">=</span> <span class="s2">&quot;test_videos_output/&quot;</span> <span class="c1"># this will be the output video directory</span>
+<span class="k">def</span> <span class="nf">detect_lanes_from_video</span><span class="p">(</span><span class="n">input_path</span><span class="p">,</span> <span class="n">output_path</span><span class="p">):</span>
+    <span class="n">clip1</span> <span class="o">=</span> <span class="n">VideoFileClip</span><span class="p">(</span><span class="s2">&quot;test_videos/&quot;</span><span class="o">+</span><span class="n">input_path</span><span class="p">)</span>
     <span class="n">white_clip</span> <span class="o">=</span> <span class="n">clip1</span><span class="o">.</span><span class="n">fl_image</span><span class="p">(</span><span class="n">process_image</span><span class="p">)</span> <span class="c1">#NOTE: this function expects color images!!</span>
-    <span class="n">white_clip</span><span class="o">.</span><span class="n">write_videofile</span><span class="p">(</span><span class="n">out_dir</span><span class="o">+</span><span class="n">output</span><span class="p">,</span> <span class="n">audio</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">white_clip</span><span class="o">.</span><span class="n">write_videofile</span><span class="p">(</span><span class="n">out_dir</span><span class="o">+</span><span class="n">output_path</span><span class="p">,</span> <span class="n">audio</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">white_clip</span>
 </pre></div>
 
@@ -15148,7 +15169,7 @@ negative. And, there are lane lines not detected fully. Therefore we should extr
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr">
-<pre>t:   1%|▏         | 9/681 [00:00&lt;00:07, 85.06it/s, now=None]</pre>
+<pre>t:   1%|▏         | 9/681 [00:00&lt;00:07, 86.58it/s, now=None]</pre>
 </div>
 </div>
 
@@ -15186,8 +15207,8 @@ Moviepy - Writing video test_videos_output/solidYellowLeft.mp4
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
 <pre>Moviepy - Done !
 Moviepy - video ready test_videos_output/solidYellowLeft.mp4
-CPU times: user 24 s, sys: 6.68 s, total: 30.7 s
-Wall time: 11.7 s
+CPU times: user 23.4 s, sys: 6.54 s, total: 30 s
+Wall time: 11.5 s
 </pre>
 </div>
 </div>
@@ -15267,6 +15288,17 @@ Wall time: 11.7 s
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr">
+<pre>t:   0%|          | 0/221 [00:00&lt;?, ?it/s, now=None]</pre>
+</div>
+</div>
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
 <pre>Moviepy - Building video test_videos_output/solidWhiteRight.mp4.
 Moviepy - Writing video test_videos_output/solidWhiteRight.mp4
@@ -15295,8 +15327,8 @@ Moviepy - Writing video test_videos_output/solidWhiteRight.mp4
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
 <pre>Moviepy - Done !
 Moviepy - video ready test_videos_output/solidWhiteRight.mp4
-CPU times: user 8.42 s, sys: 2.47 s, total: 10.9 s
-Wall time: 4.53 s
+CPU times: user 8.54 s, sys: 2.31 s, total: 10.8 s
+Wall time: 4.51 s
 </pre>
 </div>
 </div>
@@ -15376,6 +15408,17 @@ Wall time: 4.53 s
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr">
+<pre>t:   0%|          | 0/221 [00:00&lt;?, ?it/s, now=None]</pre>
+</div>
+</div>
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
 <pre>Moviepy - Building video test_videos_output/challenge.mp4.
 Moviepy - Writing video test_videos_output/challenge.mp4
@@ -15404,8 +15447,8 @@ Moviepy - Writing video test_videos_output/challenge.mp4
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
 <pre>Moviepy - Done !
 Moviepy - video ready test_videos_output/challenge.mp4
-CPU times: user 10.6 s, sys: 2.9 s, total: 13.5 s
-Wall time: 5.51 s
+CPU times: user 10.2 s, sys: 2.9 s, total: 13.1 s
+Wall time: 5.23 s
 </pre>
 </div>
 </div>
@@ -15458,19 +15501,43 @@ Wall time: 5.51 s
 
 </div>
 
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[28]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Download IPython notebook as HTML file</span>
+<span class="kn">import</span> <span class="nn">os</span>
 <span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s1">&#39;jupyter nbconvert --to html Finding_Lane_Lines_on_the_Road.ipynb&#39;</span><span class="p">)</span>
 </pre></div>
 
      </div>
 </div>
 </div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[28]:</div>
+
+
+
+
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain">
+<pre>0</pre>
+</div>
+
+</div>
+
+</div>
+
 </div>
 
 </div>
