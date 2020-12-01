@@ -64,6 +64,6 @@ def rgb_to_hsv(img):
     return cv2.cvtColor(img, cv2.COLOR_RGB2HSV)
 ```  
 
-Following are the results after applying above filter  
+Following are the results after applying HSV filter  
 
 ![](resources/hsv-images.png) 
