@@ -5,8 +5,8 @@
 In this project we are going to detect lane line on the road. Inputs were provided as a video clips and annotations were done with provided input road images. Our goal to detect lane line using annotated road images. Following learning objectives will be covered from this projects.
 
 * Basic usage of OpenCV Python APIs
-* Basic image processing technues such as colour scale changes, colour selection
-* Images edge detection user Canny edge detector (OpenCV will be used to apply these theories)
+* Basic image processing techniques such as colour scale changes, colour selection, bluring images
+* Images edge detection using Canny edge detector (OpenCV will be used to apply these theories)
 * Required images' region selection. Both hard coded and dynamic selections will be used
 * Hough tranfomation line detection (OpenCV will be used to appy these alogorithnms)
 
