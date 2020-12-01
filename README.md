@@ -1,2 +1,2 @@
-# finding-lane-lines-on-the-road
-Udacity nano degree self driving car engineer
+# Finding Lane Lines on the Road
+![](resources/final-video-capture.png)
