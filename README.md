@@ -21,3 +21,5 @@ This project consits of following major files and folders.
 * resources - **Required images for writeup**
 * requirements,txt - **Python dependencies**
 
+## How to run this project
+[How to run](HOW_TO_RUN.md)
