@@ -394,3 +394,10 @@ def detect_lanes_from_video(input_path, output_path):
     white_clip.write_videofile(out_dir+output_path, audio=False)
     return white_clip
 ```
+### Sample test case for `solidYellowLeft.mp4`
+
+```python
+out_name = "solidYellowLeft.mp4"
+out_video = out_dir+out_name
+%time out_vedio = detect_lanes_from_video(out_name,out_name)
+```
