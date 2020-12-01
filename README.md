@@ -44,3 +44,6 @@ def select_rgb_white_yellow(img):
     # combine the masks
     mask = cv2.bitwise_or(w_mask, y_mask)
     return cv2.bitwise_and(img, img,mask=mask)
+```
+Following are the results after applying above filter
+![](resources/yellow-white-images.png)
