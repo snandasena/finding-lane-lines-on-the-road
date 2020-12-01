@@ -148,3 +148,23 @@ def grayscale(img):
 Following are the results, after applying **GaussianBlur**.
 
 ![](resources/gaussian-smoothing-images.png)
+
+### Detecting edges using Canny edge detection
+Now we'll apply Canny edge detection for smoothed images. Following is the utility fuction that is used to detect edges from images.
+
+```python
+def detect_edges(img, low_threshold = 50, high_threshold=150):
+    """
+    This utility function is used to detect edges from input images
+    :param img:
+    :param low_threshold:
+    :param high_threshold:
+    :return: A gray scaled image only with edges
+    """
+    return cv2.Canny(img,low_threshold, high_threshold)
+    
+ ```
+ 
+Following are the results of Canny edge detector.
+
+![](resources/canny-edges-detected-images.png)
