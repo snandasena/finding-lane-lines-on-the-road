@@ -19,7 +19,6 @@ This project consits of following major files and folders.
 * test_videos_output - **Output directory**
 * opencv - **Sample OpenCV works**
 * resources - **Required images for writeup**
-* requirements,txt - **Python dependencies**
+* requirements,txt - **Python dependencies** 
 
-## How to run this project
-[How to run](HOW_TO_RUN.md)
+[Running Instruction](HOW_TO_RUN.md)
