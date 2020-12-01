@@ -273,7 +273,7 @@ We can see there are mutiple lines detected for a lane line. In our case multipl
 #### Extrapolation lane lines
 Since we are expecting an angular left and right lines, slope of the left must positive and slope of the right must negative. And, there are lane lines not detected fully. Therefore we should extrapolate the line to cover full lane length.  
 
-Following utility functions will be used to do averagin and extrapolation
+Following utility functions will be used to do averagin and extrapolation.
 
 ```python
 def average_slope_intercept(lines):
@@ -353,3 +353,44 @@ def draw_lane_lines(image, lines, color=[255, 0, 0], thickness=20):
 After the averaging and extrapolation the images are gave the following results.
 
 ![](resources/draw-line-improved-version.png)
+
+## Build pipeline and test with video clips
+Now we have required utility functions to build lane lines ob the roads. Following functions were implemented to build this pipeline.
+
+```python
+def mean_line(line, lines):
+    if line is not None:
+        lines.append(line)
+
+    if len(lines)>0:
+        line = np.mean(lines, axis=0, dtype=np.int32)
+        line = tuple(map(tuple, line)) # make sure it's tuples not numpy array for cv2.line to work
+    return line
+```
+```python
+def process_image(img):
+    """
+    This is used to build our road lane line detect pipeline
+    :param imag -
+    """
+    w_y_img = select_white_yellow(img) # Extracted white-yellow image
+    gray_img = grayscale(w_y_img) # gray scaled iamge
+    smooth_gray = apply_smoothing(gray_img) # Gaussian smoothing image
+    edges = detect_edges(smooth_gray) # Canny edge detected iamge
+    roi_img = select_region(edges) # selected rion image
+    lines = hough_lines(roi_img) # Hough transformed iamge
+    l_line , r_line = lane_lines(img, lines) # separated left and right lane lines
+
+    l_line = mean_line(l_line, deque(maxlen=50)) # apply averaging and extract single line left lane line
+    r_line = mean_line(r_line, deque(maxlen=50)) # appy averaging and extract single line right lane line
+
+    return draw_lane_lines(img, (l_line, r_line)) # draw lane line and return lane line drawn iamge
+    
+```
+```python
+def detect_lanes_from_video(input_path, output_path):
+    clip1 = VideoFileClip("test_videos/"+input_path)
+    white_clip = clip1.fl_image(process_image) #NOTE: this function expects color images!!
+    white_clip.write_videofile(out_dir+output_path, audio=False)
+    return white_clip
+```
