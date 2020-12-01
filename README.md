@@ -131,5 +131,20 @@ def grayscale(img):
 After applying above grayscale filter for prepared images, following are the results.  
 
 ![](resources/gray-scaled-images.png)
-    
 
+### Smoothing grayscaled images using Gaussian Smoothing
+We'll apply OpenCV `cv2.GaussianBlur` function to smooth our grayscaled images.  
+
+```python
+def grayscale(img):
+    """
+    This function is used to convert RGB images to gray scale iamges
+    :param img: input image
+    :return: gray scaled image
+    """
+    return cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
+```
+
+Following are the results, after applying **GaussianBlur**.
+
+![](resources/gaussian-smoothing-images.png)
