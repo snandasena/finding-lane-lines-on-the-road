@@ -1,5 +1,5 @@
 # Finding Lane Lines on the Road
-![[](resources/final-video-capture.png)](https://youtu.be/KHMm9bNizo8)
+[![](resources/final-video-capture.png)](https://youtu.be/KHMm9bNizo8)
 
 ## Introduction
 In this project we are going to detect lane line on the road. Inputs were provided as a video clips and annotations were done with provided input road images. Our goal to detect lane line using annotated road images. Following learning objectives will be covered from this projects.
