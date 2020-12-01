@@ -78,3 +78,30 @@ def rgb_to_hsv(img):
 Following are the results after applying HSL filter  
 
 ![](resources/hsl_filter.png)
+
+
+Compare with both filters, the HSL filter is good to detect both white and yellow lane lines  
+
+##### Select white yellow colour spaces using HSL filter
+
+```python
+def select_white_yellow(img):
+    # convert RGB colour space to HSL colour space
+    converted_img = rgb_to_hsl(img)
+    # white colour mask
+    lower_bound = np.uint8([0, 200, 0])
+    upper_bound = np.uint8([255, 255, 255])
+    w_mask = cv2.inRange(converted_img, lower_bound, upper_bound)
+    # yellow colour mask
+    lower_bound = np.uint8([10, 0, 100])
+    y_mask = cv2.inRange(converted_img, lower_bound, upper_bound)
+
+    # combine the mask
+    mask = cv2.bitwise_or(w_mask, y_mask)
+    return cv2.bitwise_and(img, img, mask=mask)
+    
+```
+
+Following are the results after applying combine HSL filter and colour masked filter.  
+
+![](resources/yellow-white-images.png)
