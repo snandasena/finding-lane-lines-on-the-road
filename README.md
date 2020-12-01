@@ -22,3 +22,7 @@ This project consits of following major files and folders.
 * requirements,txt - **Python dependencies** 
 
 [Running Instruction](HOW_TO_RUN.md)
+
+## Loading Test Images
+**matplotlib** was used to visualize provided and generated test images
+##### Provided sample images
