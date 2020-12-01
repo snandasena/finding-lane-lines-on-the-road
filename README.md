@@ -24,5 +24,5 @@ This project consits of following major files and folders.
 [Running Instruction](HOW_TO_RUN.md)
 
 ## Loading Test Images
-**matplotlib** was used to visualize provided and generated test images
-##### Provided sample images
+**matplotlib** was used to visualize provided and generated test image. Following are the provided test iamges.
+![](resources/test-images.png)
