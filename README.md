@@ -417,12 +417,13 @@ Challenge Clip -
 [![Challenge](resources/Challenge.png)](https://youtu.be/FQlkyQmXtiI)
 
 ## Indentified Protential Shortcommings
-* 
-*
+* In this project we only used Hough line transform. But, there are curve lines can be foud while driving on the roads
+* Selecting a dynamic region vetices for the interest area (ROI) was a challenge due to dyanmic images 
+* There will be a challenge to apply this pipeline, when we have steep roads
 
 ## Suggest Improvements
-*
-*
+* For further improvements, CNN(Convolutional Neural Network) can be applied.
+* Provided test images and video clips contains clear roads and great weather conditions. This pipeline can be improved with different enviromental condtions and can be found more insights
 
 ## References
 * [Introduction to Computer Vision - Udacity](https://www.udacity.com/course/introduction-to-computer-vision--ud810)
