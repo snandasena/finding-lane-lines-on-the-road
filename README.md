@@ -1,6 +1,8 @@
 # Finding Lane Lines on the Road
 [![](resources/final-video-capture.png)](https://youtu.be/KHMm9bNizo8)
 
+[My blog post and more info](https://minitechtips.blogspot.com/2020/12/how-to-find-lane-lines-on-road-part-01.html)
+
 ## Introduction
 In this project, we are going to detect lane lines on the road. Inputs were provided as video clips and annotations were done with provided input road images. Our goal is to detect lane lines using annotated road images. Following learning objectives will be covered from this project.
 
@@ -8,7 +10,7 @@ In this project, we are going to detect lane lines on the road. Inputs were prov
 * Basic image processing techniques such as colour scale changes, colour selection, bluring images
 * Image edge detection using Canny edge detector (OpenCV will be used to apply these theories)
 * Required images' region selection. Both hard coded and dynamic selections will be used
-* Hough tranfomation line detection (OpenCV will be used to appy these algorithms)
+* Hough transfomation line detection (OpenCV will be used to apply these algorithms)
 
 This project consists of the following major files and folders.
 * Finding_Lane_Lines_on_the_Road.ipynb - **The IPython notebook file**
