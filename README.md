@@ -1,5 +1,4 @@
 # Finding Lane Lines on the Road
-## Advanced Lane Finding
 [![Udacity - Self-Driving Car NanoDegree](https://s3.amazonaws.com/udacity-sdc/github/shield-carnd.svg)](http://www.udacity.com/drive)
 
 [![](resources/final-video-capture.png)](https://youtu.be/KHMm9bNizo8)
